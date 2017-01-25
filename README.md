@@ -1,7 +1,6 @@
 # Comments
 [![Build Status](https://travis-ci.org/silverstripe/silverstripe-comments.svg?branch=master)](https://travis-ci.org/silverstripe/silverstripe-comments)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-comments/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-comments/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/silverstripe/silverstripe-comments/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-comments/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/silverstripe/silverstripe-comments/badges/build.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-comments/build-status/master)
 [![codecov.io](https://codecov.io/github/silverstripe/silverstripe-comments/coverage.svg?branch=master)](https://codecov.io/github/silverstripe/silverstripe-comments?branch=master)
 
