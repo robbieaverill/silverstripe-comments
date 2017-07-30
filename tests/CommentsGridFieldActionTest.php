@@ -29,7 +29,7 @@ class CommentsGridFieldActionTest extends SapphireTest
     /** @var Form */
     protected $form;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         $this->list = new DataList(Team::class);

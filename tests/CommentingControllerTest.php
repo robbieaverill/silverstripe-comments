@@ -29,13 +29,13 @@ class CommentingControllerTest extends FunctionalTest
     /**
      * {@inheritDoc}
      */
-    protected $extraDataObjects = array(
+    protected static $extra_dataobjects = [
         CommentableItem::class
-    );
+    ];
 
     protected $securityEnabled;
 
-    public function tearDown()
+    protected function tearDown()
     {
         if ($this->securityEnabled) {
             SecurityToken::inst()->enable();
@@ -45,7 +45,7 @@ class CommentingControllerTest extends FunctionalTest
         parent::tearDown();
     }
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         $this->securityEnabled = SecurityToken::inst()->is_enabled();

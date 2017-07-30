@@ -18,24 +18,27 @@ class CommentsExtensionTest extends SapphireTest
     /**
      * {@inheritDoc}
      */
-    protected static $fixture_file = 'comments/tests/CommentsTest.yml';
+    protected static $fixture_file = 'CommentsTest.yml';
 
     /**
      * {@inheritDoc}
      */
-    protected $extraDataObjects = array(
+    protected static $extra_dataobjects = [
         CommentableItem::class,
         CommentableItemEnabled::class,
         CommentableItemDisabled::class
-    );
+    ];
 
-    public function setUp()
+    protected static $required_extensions = [
+        CommentableItem::class => [CommentsExtension::class]
+    ];
+
+    protected function setUp()
     {
         parent::setUp();
-        Config::nest();
 
         // Set good default values
-        Config::inst()->update(CommentsExtension::class, 'comments', array(
+        Config::modify()->set(CommentsExtension::class, 'comments', array(
             'enabled' => true,
             'enabled_cms' => false,
             'require_login' => false,
@@ -48,20 +51,10 @@ class CommentsExtensionTest extends SapphireTest
             'Member' => false,
         ));
 
-        $this->requiredExtensions = array(
-            'CommentableItem' => CommentsExtension::class
-        );
-
         // Configure this dataobject
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'enabled_cms' => true
         ));
-    }
-
-    public function tearDown()
-    {
-        Config::unnest();
-        parent::tearDown();
     }
 
     public function testPopulateDefaults()
@@ -78,7 +71,7 @@ class CommentsExtensionTest extends SapphireTest
     {
 
         // the 3 options take precedence in this order, executed if true
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'require_moderation_cms' => true,
             'require_moderation' => true,
             'require_moderation_nonmembers' => true
@@ -94,21 +87,21 @@ class CommentsExtensionTest extends SapphireTest
         $item->ModerationRequired = 'NonMembersOnly';
         $this->assertEquals('NonMembersOnly', $item->getModerationRequired());
 
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'require_moderation_cms' => false,
             'require_moderation' => true,
             'require_moderation_nonmembers' => true
         ));
         $this->assertEquals('Required', $item->getModerationRequired());
 
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'require_moderation_cms' => false,
             'require_moderation' => false,
             'require_moderation_nonmembers' => true
         ));
         $this->assertEquals('NonMembersOnly', $item->getModerationRequired());
 
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'require_moderation_cms' => false,
             'require_moderation' => false,
             'require_moderation_nonmembers' => false
@@ -118,7 +111,7 @@ class CommentsExtensionTest extends SapphireTest
 
     public function testGetCommentsRequireLogin()
     {
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'require_login_cms' => true
         ));
 
@@ -130,12 +123,12 @@ class CommentsExtensionTest extends SapphireTest
         $item->CommentsRequireLogin = false;
         $this->assertFalse($item->getCommentsRequireLogin());
 
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'require_login_cms' => false,
             'require_login' => false
         ));
         $this->assertFalse($item->getCommentsRequireLogin());
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'require_login_cms' => false,
             'require_login' => true
         ));
@@ -165,12 +158,12 @@ class CommentsExtensionTest extends SapphireTest
     public function testGetCommentHolderID()
     {
         $item = $this->objFromFixture(CommentableItem::class, 'first');
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'comments_holder_id' => 'commentid_test1',
         ));
         $this->assertEquals('commentid_test1', $item->getCommentHolderID());
 
-        Config::inst()->update(CommentableItem::class, 'comments', array(
+        Config::modify()->set(CommentableItem::class, 'comments', array(
             'comments_holder_id' => 'commtentid_test_another',
         ));
         $this->assertEquals('commtentid_test_another', $item->getCommentHolderID());
@@ -198,7 +191,7 @@ class CommentsExtensionTest extends SapphireTest
 
     public function testGetCommentRSSLink()
     {
-        Config::inst()->update('SilverStripe\\Control\\Director', 'alternate_base_url', 'http://unittesting.local');
+        Config::modify()->set('SilverStripe\\Control\\Director', 'alternate_base_url', 'http://unittesting.local');
 
         $item = $this->objFromFixture(CommentableItem::class, 'first');
         $link = $item->getCommentRSSLink();
@@ -207,7 +200,7 @@ class CommentsExtensionTest extends SapphireTest
 
     public function testGetCommentRSSLinkPage()
     {
-        Config::inst()->update('SilverStripe\\Control\\Director', 'alternate_base_url', 'http://unittesting.local');
+        Config::modify()->set('SilverStripe\\Control\\Director', 'alternate_base_url', 'http://unittesting.local');
 
         $item = $this->objFromFixture(CommentableItem::class, 'first');
         $page = $item->getCommentRSSLinkPage();
@@ -219,7 +212,7 @@ class CommentsExtensionTest extends SapphireTest
 
     public function testCommentsForm()
     {
-        Config::inst()->update(
+        Config::modify()->set(
             CommentableItem::class,
             'comments',
             array(
@@ -277,7 +270,7 @@ class CommentsExtensionTest extends SapphireTest
             $backend->getJavascript()
         );
 
-        Config::inst()->update(
+        Config::modify()->set(
             CommentableItem::class,
             'comments',
             array(
@@ -362,7 +355,7 @@ class CommentsExtensionTest extends SapphireTest
 
     public function testUpdateCMSFields()
     {
-        Config::inst()->update(
+        Config::modify()->set(
             CommentableItem::class,
             'comments',
             array(
@@ -402,7 +395,7 @@ class CommentsExtensionTest extends SapphireTest
             $fields
         );
 
-        Config::inst()->update(
+        Config::modify()->set(
             CommentableItem::class,
             'comments',
             array(
@@ -422,7 +415,7 @@ class CommentsExtensionTest extends SapphireTest
             $fields
         );
 
-        Config::inst()->update(
+        Config::modify()->set(
             CommentableItem::class,
             'comments',
             array(

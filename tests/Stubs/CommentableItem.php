@@ -15,6 +15,8 @@ use SilverStripe\Security\Permission;
  */
 class CommentableItem extends DataObject implements TestOnly
 {
+    private static $table_name = 'CommentableItem';
+
     private static $db = array(
         'Title' => 'Varchar'
     );
