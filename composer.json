@@ -16,7 +16,7 @@
         "silverstripe/cms": "The SilverStripe Content Management System"
     },
     "require-dev": {
-        "phpunit/PHPUnit": "~4.8"
+        "phpunit/phpunit": "^5.7"
     },
     "extra": {
         "branch-alias": {
@@ -28,6 +28,9 @@
             "SilverStripe\\Comments\\": "src/",
             "SilverStripe\\Comments\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "lint": "phpcs src/ tests/"
     },
     "license": "BSD-3-Clause",
     "minimum-stability": "dev",
