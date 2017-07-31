@@ -555,13 +555,19 @@ class CommentsExtension extends DataExtension
         if ($fields->hasTabSet()) {
             $tabs = new TabSet(
                 'Comments',
-                new Tab('CommentsNewCommentsTab', _t('CommentAdmin.NewComments', 'New') . ' ' . $newCount,
+                new Tab(
+                    'CommentsNewCommentsTab',
+                    _t('CommentAdmin.NewComments', 'New') . ' ' . $newCount,
                     $newGrid
                 ),
-                new Tab('CommentsCommentsTab', _t('CommentAdmin.Comments', 'Approved') . ' ' . $approvedCount,
+                new Tab(
+                    'CommentsCommentsTab',
+                    _t('CommentAdmin.Comments', 'Approved') . ' ' . $approvedCount,
                     $approvedGrid
                 ),
-                new Tab('CommentsSpamCommentsTab', _t('CommentAdmin.SpamComments', 'Spam') . ' ' . $spamCount,
+                new Tab(
+                    'CommentsSpamCommentsTab',
+                    _t('CommentAdmin.SpamComments', 'Spam') . ' ' . $spamCount,
                     $spamGrid
                 )
             );

@@ -97,13 +97,19 @@ class CommentAdmin extends LeftAndMain implements PermissionProvider
         $fields = new FieldList(
             $root = new TabSet(
                 'Root',
-                new Tab('NewComments', _t('CommentAdmin.NewComments', 'New') . ' ' . $newCount,
+                new Tab(
+                    'NewComments',
+                    _t('CommentAdmin.NewComments', 'New') . ' ' . $newCount,
                     $newGrid
                 ),
-                new Tab('ApprovedComments', _t('CommentAdmin.ApprovedComments', 'Approved') . ' ' . $approvedCount,
+                new Tab(
+                    'ApprovedComments',
+                    _t('CommentAdmin.ApprovedComments', 'Approved') . ' ' . $approvedCount,
                     $approvedGrid
                 ),
-                new Tab('SpamComments', _t('CommentAdmin.SpamComments', 'Spam') . ' ' . $spamCount,
+                new Tab(
+                    'SpamComments',
+                    _t('CommentAdmin.SpamComments', 'Spam') . ' ' . $spamCount,
                     $spamGrid
                 )
             )
